@@ -4,8 +4,10 @@ const app = express();
 const path = require('path');
 
 app.use('/form', express.static(path.join(__dirname, '/index.html')));
-app.use('/progress.js', express.static(path.join(__dirname, '/src/progress.js')));
-app.use('/HttpRequest.js', express.static(path.join(__dirname, '/src/HttpRequest.js')));
+app.use('/style.css', express.static(path.join(__dirname, '/style.css')));
+app.use('/bundle.js', express.static(path.join(__dirname, '/dist/bundle.js')));
+// app.use('/progress.js', express.static(path.join(__dirname, '/src/progress.js')));
+// app.use('/HttpRequest.js', express.static(path.join(__dirname, '/src/HttpRequest.js')));
 app.use('/files', express.static(path.join(__dirname, '/uploads')));
 
 // default options

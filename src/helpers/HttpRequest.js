@@ -12,14 +12,10 @@ class HttpRequest {
       const xhr = new XMLHttpRequest();
       xhr.open('GET', fullUrl, true);
 
-      for (let header in this.headers) {
-        xhr.setRequestHeader(header, this.headers[header]);
-      }
-
       xhr.onload = () => resolve(xhr);
       xhr.send();
       xhr.timeout = 30000;
-      xhr.ontimeout = () => reject('server is not responding');
+      xhr.ontimeout = () => reject(new Error('server is not responding'));
     });
   }
 
@@ -30,14 +26,10 @@ class HttpRequest {
       const xhr = new XMLHttpRequest();
       xhr.open('POST', fullUrl, true);
 
-      for (let header in this.headers) {
-        xhr.setRequestHeader(header, this.headers[header]);
-      }
-
       xhr.onload = () => resolve(xhr);
       xhr.send();
       xhr.timeout = 30000;
-      xhr.ontimeout = () => reject('server is not responding');
+      xhr.ontimeout = () => reject(new Error('server is not responding'));
     });
   }
 }
@@ -129,4 +121,4 @@ config = {
 }
 */
 
-// export default HttpRequest;
+export default HttpRequest;
