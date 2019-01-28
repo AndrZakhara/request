@@ -1,0 +1,10 @@
+// class view {
+//   constructor() {
+//
+//   }
+//
+//   createUploadForm() {
+//
+//   }
+//
+// }
