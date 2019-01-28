@@ -6,13 +6,23 @@ const path = require('path');
 app.use('/form', express.static(path.join(__dirname, '/index.html')));
 app.use('/progress.js', express.static(path.join(__dirname, '/src/progress.js')));
 app.use('/HttpRequest.js', express.static(path.join(__dirname, '/src/HttpRequest.js')));
-app.use('/files', express.static(path.join(__dirname, '/src/uploads')));
+app.use('/files', express.static(path.join(__dirname, '/uploads')));
 
 // default options
 app.use(fileUpload());
 
+app.get('/ping', function(req, res) {
+  res.send('get pong');
+  // setTimeout(() => {
+  //   res.send('pong');
+  // }, 2000);
+});
+
 app.post('/ping', function(req, res) {
-  res.send('pong');
+  res.send('post pong');
+  // setTimeout(() => {
+  //   res.send('pong');
+  // }, 2000);
 });
 
 app.post('/upload', function(req, res) {

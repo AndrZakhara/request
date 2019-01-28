@@ -5,18 +5,66 @@ class HttpRequest {
     this.headers = headers;
   }
 
-  // get(url, config) {
+  get(url, config) {
+    const fullUrl = this.baseUrl + url;
 
-  // }
+    return new Promise((resolve, reject) => {
+      const xhr = new XMLHttpRequest();
+      xhr.open('GET', fullUrl, true);
 
-  // post(url, config) {
+      for (let header in this.headers) {
+        xhr.setRequestHeader(header, this.headers[header]);
+      }
 
-  // }
+      xhr.onload = () => resolve(xhr);
+      xhr.send();
+      xhr.timeout = 30000;
+      xhr.ontimeout = () => reject('server is not responding');
+    });
+  }
+
+  post(url, config) {
+    const fullUrl = this.baseUrl + url;
+
+    return new Promise((resolve, reject) => {
+      const xhr = new XMLHttpRequest();
+      xhr.open('POST', fullUrl, true);
+
+      for (let header in this.headers) {
+        xhr.setRequestHeader(header, this.headers[header]);
+      }
+
+      xhr.onload = () => resolve(xhr);
+      xhr.send();
+      xhr.timeout = 30000;
+      xhr.ontimeout = () => reject('server is not responding');
+    });
+  }
+}
+
+function downloadFile(url, fileName) {
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = fileName;
+  a.click();
+}
+
+function appendImage(url) {
+  const node = document.querySelector('.download-img');
+
+  if (node) {
+    node.src = url;
+  } else {
+    const img = document.createElement('img');
+    img.src = url;
+    img.className = 'download-img';
+    document.body.appendChild(img);
+  }
 }
 
 /*
 const reuest = new HttpRequest({
-  baseUrl: 'http://localhost:3000',
+  baseUrl: 'http://localhost:8000',
 });
 
 reuest.get('/user/12345', { onDownloadProgress, headers: {contentType: undefined} })
@@ -80,3 +128,5 @@ config = {
   },
 }
 */
+
+// export default HttpRequest;
