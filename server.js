@@ -2,6 +2,7 @@ const express = require('express');
 const fileUpload = require('express-fileupload');
 const app = express();
 const path = require('path');
+const fs = require('fs');
 
 app.use('/form', express.static(path.join(__dirname, '/index.html')));
 app.use('/style.css', express.static(path.join(__dirname, '/style.css')));
@@ -28,9 +29,6 @@ app.post('/ping', function(req, res) {
 });
 
 app.post('/upload', function(req, res) {
-  let sampleFile = null;
-  let uploadPath = null;
-
   if (Object.keys(req.files).length === 0) {
     res.status(400).send('No files were uploaded.');
     return;
@@ -38,9 +36,9 @@ app.post('/upload', function(req, res) {
 
   console.log('req.files >>>', req.files); // eslint-disable-line
 
-  sampleFile = req.files.sampleFile; // eslint-disable-line
+  const { sampleFile } = req.files;
 
-  uploadPath = path.join(__dirname, '/uploads/', sampleFile.name);
+  const uploadPath = path.join(__dirname, '/uploads/', sampleFile.name);
 
   sampleFile.mv(uploadPath, function(err) {
     if (err) {
@@ -50,6 +48,20 @@ app.post('/upload', function(req, res) {
     res.send(path.join('File uploaded to ', uploadPath));
   });
 });
+
+
+app.get('/list', function(req, res) {
+  const listPath = path.join(__dirname, '/uploads');
+
+  fs.readdir(listPath, (err, files) => {
+    if (err) {
+      return res.status(500).send(err);
+    }
+
+    res.send(files);
+  });
+});
+
 
 app.listen(8000, function() {
   console.log('Express server listening on port 8000'); // eslint-disable-line
