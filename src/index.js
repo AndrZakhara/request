@@ -12,11 +12,25 @@ function createApp() {
   uploadForm.appendChild(progressBarUpload);
   downloadForm.appendChild(progressBarDownload);
 
+  const formWrapper = createElement(
+    'div',
+    { className: 'form-wrapper' },
+    uploadForm,
+    downloadForm
+  );
+
+  const itemsListHeader = createElement('h4', { className: 'items-list-header' }, 'Files on eDisk');
+  const itemsList = createElement(
+    'div',
+    { className: 'items-wrapper' },
+    itemsListHeader,
+  );
+
   const mainAppWrapper = createElement(
     'div',
     { className: 'main-wrapper' },
-    uploadForm,
-    downloadForm
+    itemsList,
+    formWrapper,
   );
 
   document.querySelector('.app').appendChild(mainAppWrapper);
