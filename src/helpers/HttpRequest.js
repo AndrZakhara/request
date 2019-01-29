@@ -1,7 +1,4 @@
-import {
-  createUrl,
-  setHeaders
-} from './helper';
+import { createRequest } from './helper';
 
 class HttpRequest {
   constructor({ baseUrl, headers }) {
@@ -10,70 +7,36 @@ class HttpRequest {
   }
 
   get(url, config) {
-    const {
-      headers,
-      params,
-      responseType = 'json',
-      onDownloadProgress = e => e, // eslint-disable-line
-      transformResponse = data => data
-    } = config;
-
-    const requestUrl = createUrl(this.baseUrl, url, params);
+    const requestConfig = Object.assign({}, config, {
+      baseUrl: this.baseUrl,
+      baseHeaders: this.headers,
+      url,
+      method: 'GET'
+    });
 
     return new Promise((resolve, reject) => {
-      const xhr = new XMLHttpRequest();
-
-      xhr.open('GET', requestUrl, true);
-
-      xhr.responseType = responseType;
-
-      setHeaders(xhr, this.headers, headers);
-
-      xhr.onprogress = e => onDownloadProgress(e);
-      xhr.onloadend = e => onDownloadProgress(e);
-
-      xhr.onload = () => resolve(transformResponse(xhr));
-
+      const xhr = createRequest(requestConfig, resolve, reject);
       xhr.send();
-
-      xhr.timeout = 30000;
-      xhr.ontimeout = () => reject(new Error('server is not responding'));
     });
   }
 
   post(url, config) {
-    const {
-      data,
-      headers,
-      responseType = 'json',
-      onUploadProgress = (e) => console.log(e), // eslint-disable-line
-      transformResponse = data => data
-    } = config;
-
-    const requestUrl = createUrl(this.baseUrl, url);
+    const requestConfig = Object.assign({}, config, {
+      baseUrl: this.baseUrl,
+      baseHeaders: this.headers,
+      url,
+      method: 'POST'
+    });
 
     return new Promise((resolve, reject) => {
-      const xhr = new XMLHttpRequest();
-
-      xhr.open('POST', requestUrl, true);
-
-      xhr.responseType = responseType;
-
-      setHeaders(xhr, this.headers, headers);
-
-      xhr.upload.onprogress = e => onUploadProgress(e);
-      xhr.upload.onloadend = e => onUploadProgress(e);
-
-      xhr.onload = () => resolve(transformResponse(xhr));
+      const xhr = createRequest(requestConfig, resolve, reject);
+      const { data } = config;
 
       if (data) {
         xhr.send(data);
       } else {
         xhr.send();
       }
-
-      xhr.timeout = 30000;
-      xhr.ontimeout = () => reject(new Error('server is not responding'));
     });
   }
 }

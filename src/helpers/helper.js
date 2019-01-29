@@ -16,7 +16,7 @@ export function createElement(tag, props, ...children) {
   return element;
 }
 
-export function createUrl(baseUrl, url, params = {}) {
+export function createUrl(baseUrl, url, params) {
   const mainUrl = new URL(baseUrl + url);
 
   Object.keys(params).forEach(key => mainUrl.searchParams.set(key, params[key]));
@@ -24,10 +24,51 @@ export function createUrl(baseUrl, url, params = {}) {
   return mainUrl;
 }
 
-export function setHeaders(xhr, headers, customHeaders) {
-  const allHeaders = Object.assign({}, headers, customHeaders);
+export function createRequest(requestConfig, resolve, reject) {
+  const {
+    baseHeaders,
+    baseUrl,
+    headers,
+    method,
+    params = {},
+    responseType = 'json',
+    transformResponse,
+    onDownloadProgress,
+    onUploadProgress,
+    url
+  } = requestConfig;
 
+  const requestUrl = createUrl(baseUrl, url, params);
+
+  const xhr = new XMLHttpRequest();
+
+  xhr.open(method, requestUrl, true);
+  xhr.responseType = responseType;
+
+  const allHeaders = Object.assign({}, baseHeaders, headers);
   Object.keys(allHeaders).forEach(key => xhr.setRequestHeader(key, allHeaders[key]));
+
+  if (onUploadProgress) {
+    xhr.upload.onprogress = e => onUploadProgress(e);
+    xhr.upload.onloadend = e => onUploadProgress(e);
+  } else {
+    xhr.onprogress = e => onDownloadProgress(e);
+    xhr.onloadend = e => onDownloadProgress(e);
+  }
+
+  xhr.onload = () => {
+    if (xhr.status >= 200 && xhr.status < 300) {
+      const response = transformResponse
+        ? transformResponse.reduce((acc, fn) => fn(acc), xhr.response)
+        : xhr;
+      resolve(response);
+    } else {
+      reject(xhr.statusText);
+    }
+  };
+  xhr.onerror = () => reject(xhr.statusText);
+
+  return xhr;
 }
 
 // function downloadFile(url, fileName) {

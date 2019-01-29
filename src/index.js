@@ -32,7 +32,7 @@ function createApp() {
     const req = new HttpRequest({ baseUrl: 'http://localhost:8000' });
 
     req.post('/upload', { responseType: 'json', data: form, onUploadProgress })
-      .then(data => console.log(data)); // eslint-disable-line
+      .then(data => console.log(data.status)); // eslint-disable-line
   };
 }
 

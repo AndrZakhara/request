@@ -1,10 +1,7 @@
 import { createElement } from './helper';
 
 export function progressBarView(elementClassName) {
-  const elementAllClasses = `progress ${elementClassName}`;
-  const divProgress = createElement('div', { className: elementAllClasses });
-
-  return divProgress;
+  return createElement('div', { className: `progress ${elementClassName}` });
 }
 
 export function createElementUploadFormView() {
@@ -34,13 +31,3 @@ export function createElementDownloadFormView() {
 
   return downloadForm;
 }
-// class view {
-//   constructor() {
-//
-//   }
-//
-//   createUploadForm() {
-//
-//   }
-//
-// }
