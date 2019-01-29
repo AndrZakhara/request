@@ -1,21 +1,15 @@
-// import HttpRequest from './HttpRequest';
-//
-// const req = new HttpRequest({ baseUrl: 'http://localhost:8000' });
-//
-// console.log(req);
+export function onDownloadProgress(e) {
+  return 'function';
+}
 
-// document.getElementById('uploadForm').onsubmit = function(e) {
-//   e.preventDefault();
-//   const form = new FormData();
-//   const myHeaders = new Headers();
-//   myHeaders.append('Content-Type', 'multipart/form-data');
-//   form.append('sampleFile', e.target.sampleFile.files[0]);
-//
-//   fetch('http://localhost:8000/upload', {
-//     method: 'POST',
-//     body: form
-//   });
-// };
+export function onUploadProgress(e) {
+  const width = Math.floor(e.loaded / e.total * 100);
+  const element = document.querySelector('.progress-upload');
+
+  element.style.setProperty('--progress-upload-width', width);
+}
+
+
 //
 // document.getElementById('downloadForm').onsubmit = function(e) {
 //   e.preventDefault();
