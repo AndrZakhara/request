@@ -1,26 +1,16 @@
 import { createElement } from './helpers/helper';
 import HttpRequest from './helpers/HttpRequest';
+import { onDownloadProgress, onUploadProgress } from './helpers/progress';
+import { createElementUploadFormView, createElementDownloadFormView, progressBarView } from './helpers/view';
 
 function createApp() {
-  const inputTypeFileUpload = createElement('input', { type: 'file', name: 'sampleFile' });
-  const inputTypeSubmitUpload = createElement('input', { type: 'submit', value: 'upload' });
+  const uploadForm = createElementUploadFormView();
+  const downloadForm = createElementDownloadFormView();
+  const progressBarUpload = progressBarView('progress-upload');
+  const progressBarDownload = progressBarView('progress-download');
 
-  const uploadForm = createElement(
-    'form',
-    { id: 'uploadForm', encType: 'multipart/form-data' },
-    inputTypeFileUpload,
-    inputTypeSubmitUpload
-  );
-
-  const inputTypeTextDownload = createElement('input', { type: 'text', name: 'sampleFile' });
-  const inputTypeSubmitDownload = createElement('input', { type: 'submit', value: 'download' });
-
-  const downloadForm = createElement(
-    'form',
-    { id: 'downloadForm', encType: 'multipart/form-data' },
-    inputTypeTextDownload,
-    inputTypeSubmitDownload
-  );
+  uploadForm.appendChild(progressBarUpload);
+  downloadForm.appendChild(progressBarDownload);
 
   const mainAppWrapper = createElement(
     'div',
@@ -33,7 +23,6 @@ function createApp() {
 
   document.getElementById('uploadForm').onsubmit = function(e) {
     e.preventDefault();
-
     const form = new FormData();
     const myHeaders = new Headers();
 
@@ -42,7 +31,7 @@ function createApp() {
 
     const req = new HttpRequest({ baseUrl: 'http://localhost:8000' });
 
-    req.post('/upload', { responseType: 'blob', data: form })
+    req.post('/upload', { responseType: 'json', data: form, onUploadProgress })
       .then(data => console.log(data)); // eslint-disable-line
   };
 }
