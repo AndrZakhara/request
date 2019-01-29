@@ -1,5 +1,8 @@
 export function onDownloadProgress(e) {
-  return 'function';
+  const width = Math.floor(e.loaded / e.total * 100);
+  const element = document.querySelector('.progress-download');
+
+  element.style.setProperty('--progress-download-width', width);
 }
 
 export function onUploadProgress(e) {

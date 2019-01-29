@@ -1,14 +1,16 @@
 import { createElement } from './helpers/helper';
 import HttpRequest from './helpers/HttpRequest';
 import { onDownloadProgress, onUploadProgress } from './helpers/progress';
-import { uploadFormView, downloadFormView, progressBarView } from './helpers/view';
+import { createElementUploadFormView, createElementDownloadFormView, progressBarView } from './helpers/view';
 
 function createApp() {
-  const uploadForm = uploadFormView();
-  const downloadForm = downloadFormView();
-  const progressBar = progressBarView('progress-upload');
+  const uploadForm = createElementUploadFormView();
+  const downloadForm = createElementDownloadFormView();
+  const progressBarUpload = progressBarView('progress-upload');
+  const progressBarDownload = progressBarView('progress-download');
 
-  uploadForm.appendChild(progressBar);
+  uploadForm.appendChild(progressBarUpload);
+  downloadForm.appendChild(progressBarDownload);
 
   const mainAppWrapper = createElement(
     'div',

@@ -7,7 +7,7 @@ export function progressBarView(elementClassName) {
   return divProgress;
 }
 
-export function uploadFormView() {
+export function createElementUploadFormView() {
   const inputTypeFileUpload = createElement('input', { type: 'file', name: 'sampleFile' });
   const inputTypeSubmitUpload = createElement('input', { type: 'submit', value: 'upload' });
 
@@ -21,7 +21,7 @@ export function uploadFormView() {
   return uploadForm;
 }
 
-export function downloadFormView() {
+export function createElementDownloadFormView() {
   const inputTypeTextDownload = createElement('input', { type: 'text', name: 'sampleFile' });
   const inputTypeSubmitDownload = createElement('input', { type: 'submit', value: 'download' });
 

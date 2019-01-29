@@ -1,9 +1,9 @@
 :root {
-  --progress-upload-width: 0%;
+  --progress-upload-width: 0;
 }
 
 :root {
-  --progress-download-width: 30%;
+  --progress-download-width: 0;
 }
 
 body {
@@ -12,23 +12,22 @@ body {
   width: 100%;
   height: 100vh;
   background-color: #c6c6c6;
-  transition-duration: 2s;
 }
 .main-wrapper {
   width: 960px;
   margin: 0 auto;
 }
 
-.progress-upload {
+.progress {
   width: 100%;
   height: 10px;
-
   background-color: #ddd;
-  background-image: linear-gradient(to right, #2e8426 calc(var(--progress-upload-width) * 1%), #ddd 0%);
 }
+
+.progress-upload {
+  background: linear-gradient(to right, #2e8426 calc(var(--progress-upload-width)*1%), #ddd 0%);
+}
+
 .progress-download {
-  width: 100%;
-  height: 10%;
-  background-color: #ddd;
-  background-image: linear-gradient(to right, #2e8426 var(--progress-download-width), #ddd 0%);
+  background: linear-gradient(to right, #2e8426 calc(var(--progress-download-width)*1%), #ddd 0%);
 }
