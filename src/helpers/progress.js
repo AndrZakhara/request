@@ -12,18 +12,3 @@ export function onUploadProgress(e) {
   element.style.setProperty('--progress-upload-width', width);
 }
 
-
-//
-// document.getElementById('downloadForm').onsubmit = function(e) {
-//   e.preventDefault();
-//
-//   const reuest = new HttpRequest({  // eslint-disable-line
-//     baseUrl: 'http://localhost:8000'
-//   });
-//
-//   const downloadUrl = 'http://localhost:8000/files/IMG_0081.JPG';
-//   appendImage(downloadUrl); //eslint-disable-line
-//   downloadFile(downloadUrl, 'IMG_0081.JPG'); //eslint-disable-line
-// };
-
-
