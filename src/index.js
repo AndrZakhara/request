@@ -1,4 +1,5 @@
 import { createElement } from './helpers/helper';
+import HttpRequest from './helpers/HttpRequest';
 
 function createApp() {
   const inputTypeFileUpload = createElement('input', { type: 'file', name: 'sampleFile' });
@@ -29,6 +30,21 @@ function createApp() {
   );
 
   document.querySelector('.app').appendChild(mainAppWrapper);
+
+  document.getElementById('uploadForm').onsubmit = function(e) {
+    e.preventDefault();
+
+    const form = new FormData();
+    const myHeaders = new Headers();
+
+    myHeaders.append('Content-Type', 'multipart/form-data');
+    form.append('sampleFile', e.target.sampleFile.files[0]);
+
+    const req = new HttpRequest({ baseUrl: 'http://localhost:8000' });
+
+    req.post('/upload', { responseType: 'blob', data: form })
+      .then(data => console.log(data)); // eslint-disable-line
+  };
 }
 
 document.addEventListener('DOMContentLoaded', createApp);
