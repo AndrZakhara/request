@@ -16,19 +16,36 @@ export function createElement(tag, props, ...children) {
   return element;
 }
 
-export function createUrl(baseUrl, url, params) {
+export function createUrl(baseUrl, url, params = {}) {
   const mainUrl = new URL(baseUrl + url);
 
-  for (const key in params) {
-    url.searchParams.set(key, params[key]);
-  }
+  Object.keys(params).forEach(key => mainUrl.searchParams.set(key, params[key]));
 
   return mainUrl;
 }
 
-export function setHeaders(xhr, headers) {
-  for (const key in headers) {
-    xhr.setRequestHeader(key, headers[key]);
-  }
+export function setHeaders(xhr, headers, customHeaders) {
+  const allHeaders = Object.assign({}, headers, customHeaders);
+
+  Object.keys(allHeaders).forEach(key => xhr.setRequestHeader(key, allHeaders[key]));
 }
 
+// function downloadFile(url, fileName) {
+//   const a = document.createElement('a');
+//   a.href = url;
+//   a.download = fileName;
+//   a.click();
+// }
+//
+// function appendImage(url) {
+//   const node = document.querySelector('.download-img');
+//
+//   if (node) {
+//     node.src = url;
+//   } else {
+//     const img = document.createElement('img');
+//     img.src = url;
+//     img.className = 'download-img';
+//     document.body.appendChild(img);
+//   }
+// }
