@@ -1,4 +1,7 @@
-import { createElement } from './helpers/helper';
+import {
+  createElement,
+  createListOfFiles
+} from './helpers/helper';
 import HttpRequest from './helpers/HttpRequest';
 import { onDownloadProgress, onUploadProgress } from './helpers/progress';
 import { createElementUploadFormView, createElementDownloadFormView, progressBarView } from './helpers/view';
@@ -48,6 +51,8 @@ function createApp() {
     req.post('/upload', { responseType: 'json', data: form, onUploadProgress })
       .then(data => console.log(data.status)); // eslint-disable-line
   };
+
+  createListOfFiles();
 }
 
 document.addEventListener('DOMContentLoaded', createApp);

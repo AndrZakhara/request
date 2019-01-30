@@ -1,3 +1,5 @@
+import HttpRequest from './HttpRequest';
+
 export function createElement(tag, props, ...children) {
   const element = document.createElement(tag);
 
@@ -48,10 +50,10 @@ export function createRequest(requestConfig, resolve, reject) {
   const allHeaders = Object.assign({}, baseHeaders, headers);
   Object.keys(allHeaders).forEach(key => xhr.setRequestHeader(key, allHeaders[key]));
 
-  if (onUploadProgress) {
+  if (typeof onUploadProgress === 'function') {
     xhr.upload.onprogress = e => onUploadProgress(e);
     xhr.upload.onloadend = e => onUploadProgress(e);
-  } else {
+  } else if (typeof onDownloadProgress === 'function') {
     xhr.onprogress = e => onDownloadProgress(e);
     xhr.onloadend = e => onDownloadProgress(e);
   }
@@ -69,6 +71,27 @@ export function createRequest(requestConfig, resolve, reject) {
   xhr.onerror = () => reject(xhr.statusText);
 
   return xhr;
+}
+
+export function getListOfItems() {
+  const req = new HttpRequest({ baseUrl: 'http://localhost:8000' });
+
+  return req.get('/list', { responseType: 'json' });
+}
+
+export function createListOfFiles() {
+  const element = document.querySelector('.items-wrapper');
+  const ulElement = createElement('ul', { className: 'items-list' });
+  const reqest = getListOfItems();
+  reqest
+    .then(data => {
+      data.response.forEach(el => {
+        const liElement = createElement('li', {}, el);
+        liElement.onclick = e => console.log(e.target.textContent); // eslint-disable-line
+        ulElement.appendChild(liElement);
+      });
+    });
+  element.appendChild(ulElement);
 }
 
 // function downloadFile(url, fileName) {
