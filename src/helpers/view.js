@@ -19,20 +19,20 @@ export function progressBarView(elementClassName, processMessage) {
   return progressWrapper;
 }
 
-export function hendlerClickSelectUploadFile(e) {
-  e.preventDefault();
-  document.querySelector('.file-upload').click();
-}
-
-export function hendlerOnChangeSelectUploadFile(e) {
-  e.preventDefault();
-  console.log(e.target.files.item(0).name); // eslint-disable-line
-  document.querySelector('.upload-file-name').innerHTML = e.target.files.item(0).name;
-  document.querySelector('.progress').style.display = 'block';
-  document.querySelector('.progress-notificatione').style.display = 'block';
-}
-
 export function createElementUploadFormView() {
+  const hendlerOnChangeSelectUploadFile = e => {
+    e.preventDefault();
+    console.log(e.target.files.item(0).name); // eslint-disable-line
+    document.querySelector('.upload-file-name').innerHTML = e.target.files.item(0).name;
+    document.querySelector('.progress').style.display = 'block';
+    document.querySelector('.progress-notificatione').style.display = 'block';
+  };
+
+  const hendlerClickSelectUploadFile = e => {
+    e.preventDefault();
+    document.querySelector('.file-upload').click();
+  };
+
   const inputTypeFileUpload = createElement('input', { className: 'file-upload', type: 'file', name: 'sampleFile' });
 
   inputTypeFileUpload.onchange = e => hendlerOnChangeSelectUploadFile(e);
