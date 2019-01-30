@@ -11,7 +11,7 @@ body {
   padding: 0;
   width: 100%;
   height: 100vh;
-  background-color: #c6c6c6;
+  background-color: #e1e1e1;
 }
 .app {
   width: 100%;
@@ -29,10 +29,10 @@ body {
 .items-wrapper {
   width: 250px;
   height: 100%;
-  background-color: #eeeeee;
   position: absolute;
   left: 0;
   overflow-y: scroll;
+  background-color: #eeeeee;
 }
 
 .items-list-header {
@@ -40,6 +40,7 @@ body {
   padding: 5px 0 10px 0;
   text-align: center;
   color: #1b5389;
+  background-color: #e1e1e1;
 }
 
 ul {
@@ -47,6 +48,7 @@ ul {
   margin: 0;
   padding: 0;
   width: 100%;
+  height: 100%;
   background-color: #f1f1f1;
 }
 
@@ -58,7 +60,7 @@ ul li {
 
 ul li:hover {
   cursor: pointer;
-  background-color: #e1e1e1;
+  background-color: #ffffff;
 }
 
 
@@ -69,18 +71,77 @@ ul li:hover {
 #uploadForm {
   width: 100%;
   padding: 5px 0;
+  display: flex;
+  justify-content: space-between;
+}
+
+#downloadForm {
+  display: flex;
+  justify-content: space-between;
+}
+
+.file-upload {
+  display: none;
+}
+
+.progress-wrapper{
+  height: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  /*align-items: center;*/
+  margin-bottom: 10px;
+}
+
+.progress-notificatione {
+  display: none;
+  font-size: 0.7em;
 }
 
 .progress {
   width: 100%;
   height: 5px;
-  background-color: #ddd;
+  background-color: #f9f9f9;
+  display: none;
 }
 
 .progress-upload {
-  background: linear-gradient(to right, #2e8426 calc(var(--progress-upload-width)*1%), #ddd 0%);
+  background: linear-gradient(to right, #2e8426 calc(var(--progress-upload-width)*1%), #f9f9f9 0%);
+
 }
 
 .progress-download {
-  background: linear-gradient(to right, #2e8426 calc(var(--progress-download-width)*1%), #ddd 0%);
+  background: linear-gradient(to right, #2e8426 calc(var(--progress-download-width)*1%), #f9f9f9 0%);
+}
+
+.form-button {
+  /*display: inline-block;*/
+  min-width: 28%;
+  height: 30px;
+  padding: 5px 0px;
+  /*font-size: 20px;*/
+  cursor: pointer;
+  text-align: center;
+  text-decoration: none;
+  outline: none;
+  color: #fff;
+  background-color: #242f3f;
+  border: none;
+  border-radius: 5px;
+  box-shadow: 0 2px #999;
+}
+.form-button:hover {background-color: #394c5e
+}
+
+.form-button:active {
+  background-color: #394c5e;
+  box-shadow: 0 2px #666;
+  transform: translateY(4px);
+}
+.upload-file-name {
+  min-width: 35%;
+  padding: 0 5px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
 }

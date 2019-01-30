@@ -1,25 +1,31 @@
 import {
-  createElement,
-  createListOfFiles
-} from './helpers/helper';
+  createElement
+} from './helpers/utils';
 import HttpRequest from './helpers/HttpRequest';
 import { onDownloadProgress, onUploadProgress } from './helpers/progress';
-import { createElementUploadFormView, createElementDownloadFormView, progressBarView } from './helpers/view';
+import {
+  createElementUploadFormView,
+  createElementDownloadFormView,
+  progressBarView,
+  createListOfFiles
+} from './helpers/view';
 
 function createApp() {
   const uploadForm = createElementUploadFormView();
   const downloadForm = createElementDownloadFormView();
-  const progressBarUpload = progressBarView('progress-upload');
-  const progressBarDownload = progressBarView('progress-download');
+  const progressBarUpload = progressBarView('progress-upload', 'Upload');
+  const progressBarDownload = progressBarView('progress-download', 'Download');
 
-  uploadForm.appendChild(progressBarUpload);
-  downloadForm.appendChild(progressBarDownload);
+  // uploadForm.appendChild(progressBarUpload);
+  // downloadForm.appendChild(progressBarDownload);
 
   const formWrapper = createElement(
     'div',
     { className: 'form-wrapper' },
     uploadForm,
-    downloadForm
+    progressBarUpload,
+    downloadForm,
+    progressBarDownload
   );
 
   const itemsListHeader = createElement('h4', { className: 'items-list-header' }, 'Files on eDisk');
