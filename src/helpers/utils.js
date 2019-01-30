@@ -73,26 +73,11 @@ export function createRequest(requestConfig, resolve, reject) {
   return xhr;
 }
 
-export function getListOfItems() {
-  const req = new HttpRequest({ baseUrl: 'http://localhost:8000' });
-
-  return req.get('/list', { responseType: 'json' });
-}
-
-export function createListOfFiles() {
-  const element = document.querySelector('.items-wrapper');
-  const ulElement = createElement('ul', { className: 'items-list' });
-  const reqest = getListOfItems();
-  reqest
-    .then(data => {
-      data.response.forEach(el => {
-        const liElement = createElement('li', {}, el);
-        liElement.onclick = e => console.log(e.target.textContent); // eslint-disable-line
-        ulElement.appendChild(liElement);
-      });
-    });
-  element.appendChild(ulElement);
-}
+// export function getListOfItems() {
+//   const req = new HttpRequest({ baseUrl: 'http://localhost:8000' });
+//
+//   return req.get('/list', { responseType: 'json' });
+// }
 
 // function downloadFile(url, fileName) {
 //   const a = document.createElement('a');

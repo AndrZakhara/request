@@ -1,4 +1,4 @@
-import { createRequest } from './helper';
+import { createRequest } from './utils';
 
 class HttpRequest {
   constructor({ baseUrl, headers }) {
