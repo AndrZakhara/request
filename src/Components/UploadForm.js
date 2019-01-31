@@ -2,7 +2,7 @@ import { createElement } from '../helpers/utils';
 import HttpRequest from '../libs/HttpRequest';
 import { onUploadProgress } from './ProgressBar';
 
-export default function createElementUploadForm() {
+export default function createElementUploadForm(observer) {
   const hendlerOnChangeSelectUploadFile = e => {
     e.preventDefault();
     const elementSelectForm = document.querySelector('.select-form-button');
@@ -48,7 +48,11 @@ export default function createElementUploadForm() {
 
     req.post('/upload', { responseType: 'json', data: form, onUploadProgress })
       .then(data => {
-        console.log(data.status) // eslint-disable-line
+        console.log(data.status); // eslint-disable-line
+
+        if (data.status === 200) {
+          observer.broadcast({ status: 'upload sacsess', fileName: file });
+        }
       });
   };
 

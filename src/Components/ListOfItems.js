@@ -7,7 +7,7 @@ function getListOfItems() {
   return req.get('/list', { responseType: 'json' });
 }
 
-export default function createListOfFiles() {
+export function createListOfFiles() {
   const itemsListHeader = createElement('h4', { className: 'items-list-header' }, 'Files on eDisk');
   const ulElement = createElement('ul', { className: 'items-list' });
   const reqest = getListOfItems();
