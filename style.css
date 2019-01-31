@@ -98,6 +98,7 @@ ul li:hover {
 .progress-notificatione {
   display: none;
   font-size: 0.7em;
+  color: #394c5e;
 }
 
 .progress-notificatione-upload {
@@ -172,4 +173,25 @@ ul li:hover {
   color: #fff;
   background-color: #242f3f;
   border: none;
+}
+
+.select-form-button {
+  min-width: 70%;
+  height: 30px;
+  /*padding: 5px 0px;*/
+  font-size: 1.1em;
+  cursor: pointer;
+  text-align: left;
+  text-decoration: none;
+  outline: none;
+  color: #ffffff;
+  background-color: transparent;
+  border: none;
+  border-bottom: 1px solid white;
+  /*border-radius: 5px;*/
+  /*box-shadow: 0 2px #999*/
+}
+
+.select-form-button:hover {
+  font-weight: bold;
 }

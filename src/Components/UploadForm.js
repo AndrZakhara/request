@@ -5,8 +5,11 @@ import { onUploadProgress } from './ProgressBar';
 export default function createElementUploadForm() {
   const hendlerOnChangeSelectUploadFile = e => {
     e.preventDefault();
+    const elementSelectForm = document.querySelector('.select-form-button');
 
-    document.querySelector('.upload-file-name').innerHTML = e.target.files.item(0).name;
+    elementSelectForm.innerHTML = e.target.files.item(0).name;
+    elementSelectForm.style.color = '#394c5e';
+
     document.querySelector('.progress').style.display = 'block';
     document.querySelector('.progress-notificatione').style.display = 'block';
   };
@@ -21,15 +24,13 @@ export default function createElementUploadForm() {
 
   const inputTypeSubmitUpload = createElement('input', { className: 'form-button', type: 'submit', value: 'Upload' });
 
-  const buttonSelectFile = createElement('button', { className: 'form-button select-button' }, 'Select file');
+  const buttonSelectFile = createElement('button', { className: 'select-form-button' }, 'Click to select file..');
   buttonSelectFile.onclick = e => hendlerClickSelectUploadFile(e);
 
-  const elementTextFileName = createElement('span', { className: 'upload-file-name' }, 'No file selected...');
   const uploadForm = createElement(
     'form',
     { id: 'uploadForm', encType: 'multipart/form-data' },
     buttonSelectFile,
-    elementTextFileName,
     inputTypeFileUpload,
     inputTypeSubmitUpload
   );
