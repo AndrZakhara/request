@@ -70,12 +70,14 @@ ul li:hover {
 
 #uploadForm {
   width: 100%;
-  padding: 5px 0;
+  padding: 20px 0 5px 0;
   display: flex;
   justify-content: space-between;
 }
 
 #downloadForm {
+  width: 100%;
+  padding: 20px 0 5px 0;
   display: flex;
   justify-content: space-between;
 }
@@ -115,11 +117,9 @@ ul li:hover {
 }
 
 .form-button {
-  /*display: inline-block;*/
   min-width: 28%;
   height: 30px;
   padding: 5px 0px;
-  /*font-size: 20px;*/
   cursor: pointer;
   text-align: center;
   text-decoration: none;
@@ -140,8 +140,26 @@ ul li:hover {
 }
 .upload-file-name {
   min-width: 35%;
+  max-height: 30px;
   padding: 0 5px;
   overflow: hidden;
   display: flex;
   align-items: center;
+}
+
+.form-title {
+  margin: 0;
+  color: #f4f4f4;
+  text-align: center;
+}
+
+.text-input-download-form {
+  width: 70%;
+  border-radius: 5px;
+
+  text-decoration: none;
+  outline: none;
+  color: #fff;
+  background-color: #242f3f;
+  border: none;
 }
