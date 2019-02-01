@@ -3,25 +3,24 @@ import HttpRequest from '../libs/HttpRequest';
 import { onUploadProgress } from './ProgressBar';
 import observer from '../libs/observer';
 
+function hendlerOnChangeSelectInput(e) {
+  e.preventDefault();
+  const { name } = e.target.files.item(0);
+  const elementSelectForm = document.querySelector('.select-form-button');
+  elementSelectForm.innerHTML = name;
+  elementSelectForm.style.color = '#394c5e';
+
+  document.querySelector('.progress').style.display = 'block';
+  document.querySelector('.progress-notificatione').style.display = 'block';
+  document.querySelector('.btn-upload').disabled = false;
+}
+
+function hendlerClickSelectInput(e) {
+  e.preventDefault();
+  document.querySelector('.file-upload').click();
+}
+
 export default function createElementUploadForm() {
-  const hendlerOnChangeSelectInput = e => {
-    e.preventDefault();
-    const elementSelectForm = document.querySelector('.select-form-button');
-
-    elementSelectForm.innerHTML = e.target.files.item(0).name;
-    elementSelectForm.style.color = '#394c5e';
-
-    document.querySelector('.progress').style.display = 'block';
-    document.querySelector('.progress-notificatione').style.display = 'block';
-
-    document.querySelector('.btn-upload').disabled = false;
-  };
-
-  const hendlerClickSelectInput = e => {
-    e.preventDefault();
-    document.querySelector('.file-upload').click();
-  };
-
   const inputTypeFileUpload = createElement('input', { className: 'file-upload', type: 'file', name: 'sampleFile' });
   inputTypeFileUpload.onchange = e => hendlerOnChangeSelectInput(e);
 
@@ -52,6 +51,7 @@ export default function createElementUploadForm() {
     const myHeaders = new Headers();
     const [file] = e.target.sampleFile.files;
 
+    buttonSelectFile.onclick = e => e.preventDefault();
     document.querySelector('.btn-upload').disabled = true;
 
     myHeaders.append('Content-Type', 'multipart/form-data');
@@ -61,7 +61,7 @@ export default function createElementUploadForm() {
 
     req.post('/upload', { responseType: 'json', data: form, onUploadProgress })
       .then(data => {
-        console.log(data.status); // eslint-disable-line
+        buttonSelectFile.onclick = e => hendlerClickSelectInput(e);
 
         if (data.status === 200) {
           observer.broadcast({ status: 'upload sacsess', fileName: file });
