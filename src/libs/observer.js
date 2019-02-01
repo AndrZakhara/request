@@ -16,4 +16,6 @@ class EventObserver {
   }
 }
 
-export default EventObserver;
+const observer = new EventObserver();
+
+export default observer;

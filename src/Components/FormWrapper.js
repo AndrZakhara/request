@@ -4,8 +4,8 @@ import { progressBar } from './ProgressBar';
 import createElementUploadForm from './UploadForm';
 import createElementDownloadForm from './DownLoadForm';
 
-export default function createMainForm(observer) {
-  const uploadForm = createElementUploadForm(observer);
+export default function createMainForm() {
+  const uploadForm = createElementUploadForm();
   const downloadForm = createElementDownloadForm();
   const progressBarUpload = progressBar('Upload');
   const progressBarDownload = progressBar('Download');
