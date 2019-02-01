@@ -1,5 +1,5 @@
 import { createElement } from '../helpers/utils';
-import HttpRequest from '../libs/HttpRequest';
+import request from '../libs/HttpRequest';
 import { onDownloadProgress } from './ProgressBar';
 
 function appendImage(url) {
@@ -45,8 +45,6 @@ export default function createElementDownloadForm() {
 
   inputTypeTextDownload.onchange = e => {
     inputDownloadValue = e.target.value;
-    // document.querySelector('.progress').style.display = 'block';
-    // document.querySelector('.progress-notificatione-download').style.display = 'block';
   };
 
   const downloadForm = createElement(
@@ -58,22 +56,12 @@ export default function createElementDownloadForm() {
 
   downloadForm.onsubmit = function(e) {
     e.preventDefault();
-    const myHeaders = new Headers();
-
-    myHeaders.append('Content-Type', 'multipart/form-data');
-
-    const req = new HttpRequest({ baseUrl: 'http://localhost:8000' });
-    req.get(`/files/${inputDownloadValue}`, { responseType: 'blob', onDownloadProgress })
+    request.get(`/files/${inputDownloadValue}`, { responseType: 'blob', onDownloadProgress })
       .then(data => {
         const { type } = data.response;
         console.log(data.response.type); // eslint-disable-line
 
         handleData(data.response, inputDownloadValue);
-        // if (type === 'image/png' || type === 'image/jpeg' || type === 'image/gif') {
-        //   appendImage(data.response)
-        // } else {
-        //   downloadFile(data.response, inputDownloadValue);
-        // }
       });
   };
 

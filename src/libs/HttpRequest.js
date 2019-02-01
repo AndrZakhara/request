@@ -86,4 +86,9 @@ class HttpRequest {
   }
 }
 
-export default HttpRequest;
+const myHeaders = new Headers();
+myHeaders.append('Content-Type', 'multipart/form-data');
+
+const request = new HttpRequest({ baseUrl: 'http://localhost:8000' });
+
+export default request;
