@@ -1,18 +1,16 @@
-import HttpRequest from '../libs/HttpRequest';
+import request from '../libs/HttpRequest';
 import { createElement } from '../helpers/utils';
 
 function getListOfItems() {
-  const req = new HttpRequest({ baseUrl: 'http://localhost:8000' });
-
-  return req.get('/list', { responseType: 'json' });
+  return request.get('/list', { responseType: 'json' });
 }
 
 export function createListOfFiles() {
   const itemsListHeader = createElement('h4', { className: 'items-list-header' }, 'Files on eDisk');
   const ulElement = createElement('ul', { className: 'items-list' });
-  const reqest = getListOfItems();
+  const createReqest = getListOfItems();
 
-  reqest
+  createReqest
     .then(data => {
       data.response.forEach(el => {
         const liElement = createElement('li', {}, el);

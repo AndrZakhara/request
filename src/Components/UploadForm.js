@@ -1,5 +1,5 @@
 import { createElement } from '../helpers/utils';
-import HttpRequest from '../libs/HttpRequest';
+import request from '../libs/HttpRequest';
 import { onUploadProgress } from './ProgressBar';
 import observer from '../libs/observer';
 
@@ -48,18 +48,14 @@ export default function createElementUploadForm() {
   uploadForm.onsubmit = function(e) {
     e.preventDefault();
     const form = new FormData();
-    const myHeaders = new Headers();
     const [file] = e.target.sampleFile.files;
 
     buttonSelectFile.onclick = e => e.preventDefault();
     document.querySelector('.btn-upload').disabled = true;
 
-    myHeaders.append('Content-Type', 'multipart/form-data');
     form.append('sampleFile', file);
 
-    const req = new HttpRequest({ baseUrl: 'http://localhost:8000' });
-
-    req.post('/upload', { responseType: 'json', data: form, onUploadProgress })
+    request.post('/upload', { responseType: 'json', data: form, onUploadProgress })
       .then(data => {
         buttonSelectFile.onclick = e => hendlerClickSelectInput(e);
 
