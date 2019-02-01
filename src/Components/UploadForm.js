@@ -1,9 +1,10 @@
 import { createElement } from '../helpers/utils';
 import HttpRequest from '../libs/HttpRequest';
 import { onUploadProgress } from './ProgressBar';
+import observer from '../libs/observer';
 
-export default function createElementUploadForm(observer) {
-  const hendlerOnChangeSelectUploadFile = e => {
+export default function createElementUploadForm() {
+  const hendlerOnChangeSelectInput = e => {
     e.preventDefault();
     const elementSelectForm = document.querySelector('.select-form-button');
 
@@ -12,20 +13,30 @@ export default function createElementUploadForm(observer) {
 
     document.querySelector('.progress').style.display = 'block';
     document.querySelector('.progress-notificatione').style.display = 'block';
+
+    document.querySelector('.btn-upload').disabled = false;
   };
 
-  const hendlerClickSelectUploadFile = e => {
+  const hendlerClickSelectInput = e => {
     e.preventDefault();
     document.querySelector('.file-upload').click();
   };
 
   const inputTypeFileUpload = createElement('input', { className: 'file-upload', type: 'file', name: 'sampleFile' });
-  inputTypeFileUpload.onchange = e => hendlerOnChangeSelectUploadFile(e);
+  inputTypeFileUpload.onchange = e => hendlerOnChangeSelectInput(e);
 
-  const inputTypeSubmitUpload = createElement('input', { className: 'form-button', type: 'submit', value: 'Upload' });
+  const inputTypeSubmitUpload = createElement(
+    'input',
+    {
+      className: 'form-button btn-upload',
+      disabled: 'true',
+      type: 'submit',
+      value: 'Upload'
+    }
+  );
 
   const buttonSelectFile = createElement('button', { className: 'select-form-button' }, 'Click to select file..');
-  buttonSelectFile.onclick = e => hendlerClickSelectUploadFile(e);
+  buttonSelectFile.onclick = e => hendlerClickSelectInput(e);
 
   const uploadForm = createElement(
     'form',
@@ -40,6 +51,8 @@ export default function createElementUploadForm(observer) {
     const form = new FormData();
     const myHeaders = new Headers();
     const [file] = e.target.sampleFile.files;
+
+    document.querySelector('.btn-upload').disabled = true;
 
     myHeaders.append('Content-Type', 'multipart/form-data');
     form.append('sampleFile', file);
