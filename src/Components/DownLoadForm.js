@@ -4,10 +4,16 @@ import { onDownloadProgress } from './ProgressBar';
 
 function appendImage(url) {
   const element = document.querySelector('.wrapper-download-img');
-  const img = document.createElement('img');
-  img.src = url;
-  img.className = 'download-img';
-  element.appendChild(img);
+  const img = document.querySelector('.download-img');
+
+  if (img) {
+    img.src = url;
+  } else {
+    const img = document.createElement('img');
+    img.src = url;
+    img.className = 'download-img';
+    element.appendChild(img);
+  }
 }
 
 function handleData(data, fileName) {
@@ -30,6 +36,7 @@ export default function createElementDownloadForm() {
     'input',
     {
       className: 'text-input-download-form',
+      placeholder: 'Enter file name...',
       type: 'text',
       name: 'sampleFile'
     }
@@ -37,14 +44,28 @@ export default function createElementDownloadForm() {
   const inputTypeSubmitDownload = createElement(
     'input',
     {
-      className: 'form-button',
+      className: 'form-button btn-download',
       type: 'submit',
-      value: 'download'
+      value: 'Download',
+      disabled: 'true'
     }
   );
 
   inputTypeTextDownload.onchange = e => {
     inputDownloadValue = e.target.value;
+    inputTypeSubmitDownload.disabled = false;
+  };
+
+  const handlerEventDownload = status => {
+    const elementInput = document.querySelector('.text-input-download-form');
+    elementInput.value = null;
+    inputTypeSubmitDownload.disabled = true;
+
+    if (status === 200) {
+      elementInput.placeholder = 'File successfully downloaded';
+    } else {
+      elementInput.placeholder = 'File not found. Try again.';
+    }
   };
 
   const downloadForm = createElement(
@@ -58,10 +79,11 @@ export default function createElementDownloadForm() {
     e.preventDefault();
     request.get(`/files/${inputDownloadValue}`, { responseType: 'blob', onDownloadProgress })
       .then(data => {
-        const { type } = data.response;
-        console.log(data.response.type); // eslint-disable-line
-
+        handlerEventDownload(data.status);
         handleData(data.response, inputDownloadValue);
+      })
+      .catch(err => {
+        handlerEventDownload(err);
       });
   };
 

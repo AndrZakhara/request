@@ -28,11 +28,7 @@ function createApp() {
       }
 
       document.querySelector('.progress-upload').style.setProperty('--progress-upload-width', 0);
-
       document.querySelector('.progress').style.display = 'none';
-      document.querySelector('.progress-notificatione').style.display = 'none';
-      const inputSelectFile = document.querySelector('.select-form-button');
-      inputSelectFile.textContent = 'File successfully uploaded';
     }
   });
 

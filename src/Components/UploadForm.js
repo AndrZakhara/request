@@ -11,7 +11,6 @@ function hendlerOnChangeSelectInput(e) {
   elementSelectForm.style.color = '#394c5e';
 
   document.querySelector('.progress').style.display = 'block';
-  document.querySelector('.progress-notificatione').style.display = 'block';
   document.querySelector('.btn-upload').disabled = false;
 }
 
@@ -60,7 +59,10 @@ export default function createElementUploadForm() {
         buttonSelectFile.onclick = e => hendlerClickSelectInput(e);
 
         if (data.status === 200) {
+          buttonSelectFile.textContent = 'File successfully uploaded';
           observer.broadcast({ status: 'upload sacsess', fileName: file });
+        } else {
+          buttonSelectFile.textContent = 'Upload was broken. Try again.';
         }
       });
   };
