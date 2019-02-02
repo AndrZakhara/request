@@ -31,8 +31,15 @@ body {
   flex-direction: column;
 }
 
+.wrapper-download-img {
+  width: 360px;
+}
+img {
+  width: 100%;
+}
+
 .items-wrapper {
-  max-width: 250px;
+  width: 250px;
   height: 100vh;
   position: absolute;
   left: 0;
@@ -100,14 +107,13 @@ ul li:hover {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  /*align-items: center;*/
   margin-bottom: 10px;
 }
 
 .progress-notificatione {
   display: none;
   font-size: 0.7em;
-  color: #394c5e;
+  /*color: #394c5e;*/
 }
 
 .progress-notificatione-upload {
@@ -121,19 +127,20 @@ ul li:hover {
 }
 
 .progress {
-  width: 100%;
+  /*width: 100%;*/
+  width: 70%;
   height: 5px;
   background-color: #f9f9f9;
   display: none;
 }
 
 .progress-upload {
-  background: linear-gradient(to right, #2e8426 calc(var(--progress-upload-width)*1%), #f9f9f9 0%);
+  background: linear-gradient(to right, #112d4e calc(var(--progress-upload-width)*1%), #f9f9f9 0%);
 
 }
 
 .progress-download {
-  background: linear-gradient(to right, #2e8426 calc(var(--progress-download-width)*1%), #f9f9f9 0%);
+  background: linear-gradient(to right, #112d4e calc(var(--progress-download-width)*1%), #f9f9f9 0%);
 }
 
 .form-button {
@@ -162,8 +169,6 @@ ul li:hover {
 
 .form-button:disabled {
   background-color: #7f8392;
-  /*box-shadow: 0 2px #666;*/
-  /*transform: translateY(4px);*/
 }
 
 .upload-file-name {
@@ -189,26 +194,20 @@ ul li:hover {
   text-align: left;
   text-decoration: none;
   outline: none;
-  color: #ffffff;
+  color: #394C5E;
   background-color: transparent;
   border: none;
   border-bottom: 1px solid white;
-  /*width: 70%;*/
-  /*border-radius: 5px;*/
-  /*text-decoration: none;*/
-  /*outline: none;*/
-  /*color: #fff;*/
-  /*background-color: transparent;*/
-  /*border: none;*/
-  /*border-bottom: 1px solid white;*/
   box-shadow: 0 0 0 30px #e1e1e1 inset !important;
 }
 
-.text-input-download-form:focus {
-  color: red;
+.text-input-download-form:hover {
+  font-weight: bold;
 }
 
 .select-form-button {
+  margin: 0;
+  padding: 0;
   min-width: 70%;
   height: 30px;
   font-size: 1.1em;
@@ -216,12 +215,10 @@ ul li:hover {
   text-align: left;
   text-decoration: none;
   outline: none;
-  color: #ffffff;
+  color: #848387;
   background-color: transparent;
   border: none;
   border-bottom: 1px solid white;
-  /*overflow: hidden;*/
-
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;

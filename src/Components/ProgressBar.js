@@ -20,15 +20,9 @@ export function progressBar(processMessage) {
     : 'progress-download';
 
   const progressStatus = createElement('div', { className: `progress ${elementClassName}` });
-  const progressNotificatione = createElement(
-    'span',
-    { className: 'progress-notificatione' },
-    `${processMessage} progress: `
-  );
   const progressWrapper = createElement(
     'div',
     { className: 'progress-wrapper' },
-    progressNotificatione,
     progressStatus
   );
 
