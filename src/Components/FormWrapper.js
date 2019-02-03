@@ -7,8 +7,8 @@ import createElementDownloadForm from './DownLoadForm';
 export default function createMainForm() {
   const uploadForm = createElementUploadForm();
   const downloadForm = createElementDownloadForm();
-  const progressBarUpload = progressBar('Upload');
-  const progressBarDownload = progressBar('Download');
+  const progressBarUpload = progressBar('upload');
+  const progressBarDownload = progressBar('download');
   const uploadFormTitle = createElement('h2', { className: 'form-title' }, 'Add file to eDisk');
   const downloadFormTitle = createElement('h2', { className: 'form-title' }, 'Download file from eDisk');
 

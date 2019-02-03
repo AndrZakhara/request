@@ -27,8 +27,9 @@ function createApp() {
         document.querySelector('.items-list').appendChild(liElement);
       }
 
-      document.querySelector('.progress-upload').style.setProperty('--progress-upload-width', 0);
-      document.querySelector('.progress').style.display = 'none';
+      const elemProgress = document.querySelector('.progress-upload');
+      elemProgress.style.setProperty('--progress-upload-width', 0);
+      elemProgress.style.display = 'none';
     }
   });
 
