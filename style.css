@@ -102,44 +102,66 @@ ul li:hover {
   display: none;
 }
 
-.progress-wrapper{
-  height: 20px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
+.progress-wrapper-upload{
+  /*height: 20px;*/
+  /*display: flex;*/
+  /*flex-direction: column;*/
+  /*justify-content: space-between;*/
   margin-bottom: 10px;
+  position: relative;
 }
 
-.progress-notificatione {
-  display: none;
-  font-size: 0.7em;
+.progress-wrapper-download{
+  margin-bottom: 10px;
+  position: relative;
+}
+
+/*.progress-notificatione {*/
+  /*display: none;*/
+  /*font-size: 0.7em;*/
   /*color: #394c5e;*/
-}
+/*}*/
 
-.progress-notificatione-upload {
-  display: none;
-  font-size: 0.7em;
-}
+/*.progress-notificatione-upload {*/
+  /*display: none;*/
+  /*font-size: 0.7em;*/
+/*}*/
 
-.progress-notificatione-download {
-  display: none;
-  font-size: 0.7em;
-}
+/*.progress-notificatione-download {*/
+  /*display: none;*/
+  /*font-size: 0.7em;*/
+/*}*/
 
 .progress {
   /*width: 100%;*/
-  width: 70%;
-  height: 5px;
-  background-color: #f9f9f9;
-  display: none;
+  /*width: 70%;*/
+  /*height: 5px;*/
+  /*background-color: #f9f9f9;*/
+  /*display: none;*/
+  /*width: 100%;*/
+  /*position: absolute;*/
+  /*top: -10px;*/
 }
 
 .progress-upload {
-  background: linear-gradient(to right, #112d4e calc(var(--progress-upload-width)*1%), #f9f9f9 0%);
+  height: 5px;
+  /*background-color: #f9f9f9;*/
+  display: none;
 
+  position: absolute;
+  top: -10px;
+  width: 252px;
+  border-radius: 2px;
+  background: linear-gradient(to right, #112d4e calc(var(--progress-upload-width)*1%), #f9f9f9 0%);
 }
 
 .progress-download {
+  height: 5px;
+  display: none;
+  position: absolute;
+  top: -10px;
+  width: 252px;
+  border-radius: 2px;
   background: linear-gradient(to right, #112d4e calc(var(--progress-download-width)*1%), #f9f9f9 0%);
 }
 

@@ -10,7 +10,7 @@ function hendlerOnChangeSelectInput(e) {
   elementSelectForm.innerHTML = name;
   elementSelectForm.style.color = '#394c5e';
 
-  document.querySelector('.progress').style.display = 'block';
+  document.querySelector('.progress-upload').style.display = 'block';
   document.querySelector('.btn-upload').disabled = false;
 }
 

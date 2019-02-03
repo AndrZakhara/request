@@ -54,11 +54,13 @@ export default function createElementDownloadForm() {
   inputTypeTextDownload.onchange = e => {
     inputDownloadValue = e.target.value;
     inputTypeSubmitDownload.disabled = false;
+    document.querySelector('.progress-download').style.display = 'block';
   };
 
   const handlerEventDownload = status => {
     const elementInput = document.querySelector('.text-input-download-form');
     elementInput.value = null;
+    elementInput.disabled = false;
     inputTypeSubmitDownload.disabled = true;
 
     if (status === 200) {
@@ -66,6 +68,8 @@ export default function createElementDownloadForm() {
     } else {
       elementInput.placeholder = 'File not found. Try again.';
     }
+    document.querySelector('.progress-download').style.setProperty('--progress-download-width', 0);
+    document.querySelector('.progress-download').style.display = 'none';
   };
 
   const downloadForm = createElement(
@@ -77,6 +81,7 @@ export default function createElementDownloadForm() {
 
   downloadForm.onsubmit = function(e) {
     e.preventDefault();
+    document.querySelector('.text-input-download-form').disabled = true;
     request.get(`/files/${inputDownloadValue}`, { responseType: 'blob', onDownloadProgress })
       .then(data => {
         handlerEventDownload(data.status);
