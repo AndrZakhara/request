@@ -100,6 +100,5 @@ observer.subscribe(mes => {
     elementInput[0].value = fieldValue;
     btnDownload[0].disabled = false;
     inputDownloadValue = fieldValue;
-    document.querySelector('.progress-download').style.display = 'block';
   }
 });

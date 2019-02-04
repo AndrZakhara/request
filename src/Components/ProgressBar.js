@@ -53,4 +53,8 @@ observer.subscribe(mes => {
   } else if (mes.status === 'show upload progress') {
     document.querySelector('.progress-upload').style.display = 'block';
   }
+
+  if (mes.status === 'list item click') {
+    document.querySelector('.progress-download').style.display = 'block';
+  }
 });
