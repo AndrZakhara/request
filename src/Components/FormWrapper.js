@@ -1,12 +1,12 @@
 import { createElement } from '../helpers/utils';
 
 import { progressBar } from './ProgressBar';
-import createElementUploadForm from './UploadForm';
-import createElementDownloadForm from './DownLoadForm';
+import createUploadForm from './UploadForm';
+import createDownloadForm from './DownLoadForm';
 
 export default function createMainForm() {
-  const uploadForm = createElementUploadForm();
-  const downloadForm = createElementDownloadForm();
+  const uploadForm = createUploadForm();
+  const downloadForm = createDownloadForm();
   const progressBarUpload = progressBar('upload');
   const progressBarDownload = progressBar('download');
   const uploadFormTitle = createElement('h2', { className: 'form-title' }, 'Add file to eDisk');

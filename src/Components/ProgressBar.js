@@ -1,4 +1,5 @@
 import { createElement } from '../helpers/utils';
+import observer from '../libs/observer';
 
 export function onDownloadProgress(event) {
   const loadValue = Math.floor(event.loaded / event.total * 100);
@@ -9,8 +10,8 @@ export function onDownloadProgress(event) {
   title.innerHTML = `${loadValue}% eDisk`;
 }
 
-export function onUploadProgress(e) {
-  const loadValue = Math.floor(e.loaded / e.total * 100);
+export function onUploadProgress(event) {
+  const loadValue = Math.floor(event.loaded / event.total * 100);
   const element = document.querySelector('.progress-upload');
 
   element.style.setProperty('--progress-upload-width', loadValue);
@@ -22,11 +23,22 @@ export function progressBar(processMessage) {
     : 'progress-download';
 
   const progressStatus = createElement('div', { className: `progress ${elementClassName}` });
-  const progressWrapper = createElement(
+
+  return createElement(
     'div',
     { className: `progress-wrapper-${processMessage}` },
     progressStatus
   );
-
-  return progressWrapper;
 }
+
+observer.subscribe(mes => {
+  if (mes.status === 'upload finished') {
+    const elemProgress = document.querySelector('.progress-upload');
+    elemProgress.style.setProperty('--progress-upload-width', 0);
+    elemProgress.style.display = 'none';
+  } else if (mes.status === 'download finished') {
+    const elemProgress = document.querySelector('.progress-download');
+    elemProgress.style.setProperty('--progress-download-width', 0);
+    elemProgress.style.display = 'none';
+  }
+});

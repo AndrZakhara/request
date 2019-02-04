@@ -6,28 +6,29 @@
   --progress-download-width: 0;
 }
 
+html body {
+  min-height: 100vh;
+}
+
 body {
   margin: 0;
   padding: 0;
   width: 100%;
-  height: 100vh;
   background-color: #e1e1e1;
 }
 
 .app {
   width: 100%;
-  height: 100%;
+  min-height: 100vh;
   position: relative;
 }
 
 .main-wrapper {
   width: 100%;
   min-width: 960px;
-  /*height: 100%;*/
   margin: 0 auto;
   display: flex;
   align-items: center;
-  /*justify-content: center;*/
   flex-direction: column;
 }
 
@@ -40,7 +41,7 @@ img {
 
 .items-wrapper {
   width: 250px;
-  height: 100vh;
+  height: 100%;
   position: absolute;
   left: 0;
   overflow-y: scroll;
@@ -49,7 +50,7 @@ img {
 }
 
 .items-list {
-  height: calc(100vh - 33px);
+  height: calc(100% - 33px);
 }
 
 .items-list-header {
@@ -103,10 +104,6 @@ ul li:hover {
 }
 
 .progress-wrapper-upload{
-  /*height: 20px;*/
-  /*display: flex;*/
-  /*flex-direction: column;*/
-  /*justify-content: space-between;*/
   margin-bottom: 10px;
   position: relative;
 }
@@ -116,38 +113,9 @@ ul li:hover {
   position: relative;
 }
 
-/*.progress-notificatione {*/
-  /*display: none;*/
-  /*font-size: 0.7em;*/
-  /*color: #394c5e;*/
-/*}*/
-
-/*.progress-notificatione-upload {*/
-  /*display: none;*/
-  /*font-size: 0.7em;*/
-/*}*/
-
-/*.progress-notificatione-download {*/
-  /*display: none;*/
-  /*font-size: 0.7em;*/
-/*}*/
-
-.progress {
-  /*width: 100%;*/
-  /*width: 70%;*/
-  /*height: 5px;*/
-  /*background-color: #f9f9f9;*/
-  /*display: none;*/
-  /*width: 100%;*/
-  /*position: absolute;*/
-  /*top: -10px;*/
-}
-
 .progress-upload {
   height: 5px;
-  /*background-color: #f9f9f9;*/
   display: none;
-
   position: absolute;
   top: -10px;
   width: 252px;
@@ -216,7 +184,7 @@ ul li:hover {
   text-align: left;
   text-decoration: none;
   outline: none;
-  color: #394C5E;
+  color: #848387;
   background-color: transparent;
   border: none;
   border-bottom: 1px solid white;
