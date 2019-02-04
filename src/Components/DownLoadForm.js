@@ -27,9 +27,9 @@ function handlerOnchangeInput(e) {
   btnDownload[0].disabled = false;
 
   if (elementInput[0].value === '') {
-    document.querySelector('.progress-download').style.display = 'none';
+    observer.broadcast({ status: 'hide download progress' });
   } else {
-    document.querySelector('.progress-download').style.display = 'block';
+    observer.broadcast({ status: 'show download progress' });
   }
 }
 
