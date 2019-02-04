@@ -11,7 +11,7 @@ function handlerOnChangeSelectInput(e) {
   const elementSelectForm = document.querySelector('.select-form-button');
   elementSelectForm.innerHTML = name;
 
-  document.querySelector('.progress-upload').style.display = 'block';
+  observer.broadcast({ status: 'show upload progress' });
   btnUpload[0].disabled = false;
 }
 
@@ -42,6 +42,9 @@ function handlerOnsubmit(e) {
       } else {
         buttonSelectFile.textContent = 'Upload was broken. Try again.';
       }
+    })
+    .catch(error => {
+      observer.broadcast({ status: 'upload error', error });
     });
 }
 

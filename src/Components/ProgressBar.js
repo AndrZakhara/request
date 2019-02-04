@@ -41,4 +41,20 @@ observer.subscribe(mes => {
     elemProgress.style.setProperty('--progress-download-width', 0);
     elemProgress.style.display = 'none';
   }
+
+  if (mes.status === 'hide download progress') {
+    document.querySelector('.progress-download').style.display = 'none';
+  } else if (mes.status === 'show download progress') {
+    document.querySelector('.progress-download').style.display = 'block';
+  }
+
+  if (mes.status === 'hide upload progress') {
+    document.querySelector('.progress-upload').style.display = 'none';
+  } else if (mes.status === 'show upload progress') {
+    document.querySelector('.progress-upload').style.display = 'block';
+  }
+
+  if (mes.status === 'list item click') {
+    document.querySelector('.progress-download').style.display = 'block';
+  }
 });
