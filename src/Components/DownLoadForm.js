@@ -24,7 +24,7 @@ function handleData(data, fileName) {
 
 function handlerOnchangeInput(e) {
   inputDownloadValue = e.target.value;
-  document.querySelector('.btn-download').disabled = false;
+  btnDownload[0].disabled = false;
 
   if (elementInput[0].value === '') {
     document.querySelector('.progress-download').style.display = 'none';
@@ -36,7 +36,7 @@ function handlerOnchangeInput(e) {
 function handlerEventDownload(status) {
   elementInput[0].value = null;
   elementInput[0].disabled = false;
-  document.querySelector('.btn-download').disabled = true;
+  btnDownload[0].disabled = true;
 
   if (status === 200) {
     elementInput[0].placeholder = 'File successfully downloaded';
