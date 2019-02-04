@@ -1,20 +1,12 @@
 import { createElement } from '../helpers/utils';
 import request from '../libs/HttpRequest';
 import { onDownloadProgress } from './ProgressBar';
+import observer from '../libs/observer';
+import appendImage from './MainImg';
 
-function appendImage(url) {
-  const element = document.querySelector('.wrapper-download-img');
-  const img = document.querySelector('.download-img');
-
-  if (img) {
-    img.src = url;
-  } else {
-    const img = document.createElement('img');
-    img.src = url;
-    img.className = 'download-img';
-    element.appendChild(img);
-  }
-}
+let inputDownloadValue = null;
+const elementInput = document.getElementsByClassName('text-input-download-form');
+const btnDownload = document.getElementsByClassName('btn-download');
 
 function handleData(data, fileName) {
   const fileURL = URL.createObjectURL(data);
@@ -30,8 +22,45 @@ function handleData(data, fileName) {
   }
 }
 
-export default function createElementDownloadForm() {
-  let inputDownloadValue = null;
+function handlerOnchangeInput(e) {
+  inputDownloadValue = e.target.value;
+  document.querySelector('.btn-download').disabled = false;
+
+  if (elementInput[0].value === '') {
+    document.querySelector('.progress-download').style.display = 'none';
+  } else {
+    document.querySelector('.progress-download').style.display = 'block';
+  }
+}
+
+function handlerEventDownload(status) {
+  elementInput[0].value = null;
+  elementInput[0].disabled = false;
+  document.querySelector('.btn-download').disabled = true;
+
+  if (status === 200) {
+    elementInput[0].placeholder = 'File successfully downloaded';
+  } else {
+    elementInput[0].placeholder = 'File not found. Try again.';
+  }
+
+  observer.broadcast({ status: 'download finished' });
+}
+
+function handlerEventSubmit(e) {
+  e.preventDefault();
+  elementInput[0].disabled = true;
+  request.get(`/files/${inputDownloadValue}`, { responseType: 'blob', onDownloadProgress })
+    .then(data => {
+      handlerEventDownload(data.status);
+      handleData(data.response, inputDownloadValue);
+    })
+    .catch(err => {
+      handlerEventDownload(err);
+    });
+}
+
+export default function createDownloadForm() {
   const inputTypeTextDownload = createElement(
     'input',
     {
@@ -51,26 +80,7 @@ export default function createElementDownloadForm() {
     }
   );
 
-  inputTypeTextDownload.onchange = e => {
-    inputDownloadValue = e.target.value;
-    inputTypeSubmitDownload.disabled = false;
-    document.querySelector('.progress-download').style.display = 'block';
-  };
-
-  const handlerEventDownload = status => {
-    const elementInput = document.querySelector('.text-input-download-form');
-    elementInput.value = null;
-    elementInput.disabled = false;
-    inputTypeSubmitDownload.disabled = true;
-
-    if (status === 200) {
-      elementInput.placeholder = 'File successfully downloaded';
-    } else {
-      elementInput.placeholder = 'File not found. Try again.';
-    }
-    document.querySelector('.progress-download').style.setProperty('--progress-download-width', 0);
-    document.querySelector('.progress-download').style.display = 'none';
-  };
+  inputTypeTextDownload.onchange = e => handlerOnchangeInput(e);
 
   const downloadForm = createElement(
     'form',
@@ -79,18 +89,17 @@ export default function createElementDownloadForm() {
     inputTypeSubmitDownload
   );
 
-  downloadForm.onsubmit = function(e) {
-    e.preventDefault();
-    document.querySelector('.text-input-download-form').disabled = true;
-    request.get(`/files/${inputDownloadValue}`, { responseType: 'blob', onDownloadProgress })
-      .then(data => {
-        handlerEventDownload(data.status);
-        handleData(data.response, inputDownloadValue);
-      })
-      .catch(err => {
-        handlerEventDownload(err);
-      });
-  };
+  downloadForm.onsubmit = e => handlerEventSubmit(e);
 
   return downloadForm;
 }
+
+observer.subscribe(mes => {
+  if (mes.status === 'list item click') {
+    const { fieldValue } = mes;
+    elementInput[0].value = fieldValue;
+    btnDownload[0].disabled = false;
+    inputDownloadValue = fieldValue;
+    document.querySelector('.progress-download').style.display = 'block';
+  }
+});
