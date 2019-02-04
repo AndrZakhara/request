@@ -3,6 +3,8 @@ import request from '../libs/HttpRequest';
 import { onUploadProgress } from './ProgressBar';
 import observer from '../libs/observer';
 
+const btnUpload = document.getElementsByClassName('btn-upload');
+
 function handlerOnChangeSelectInput(e) {
   e.preventDefault();
   const { name } = e.target.files.item(0);
@@ -10,7 +12,7 @@ function handlerOnChangeSelectInput(e) {
   elementSelectForm.innerHTML = name;
 
   document.querySelector('.progress-upload').style.display = 'block';
-  document.querySelector('.btn-upload').disabled = false;
+  btnUpload[0].disabled = false;
 }
 
 function handlerClickSelectInput(e) {
@@ -25,7 +27,7 @@ function handlerOnsubmit(e) {
   const [file] = e.target.sampleFile.files;
 
   buttonSelectFile.onclick = e => e.preventDefault();
-  document.querySelector('.btn-upload').disabled = true;
+  btnUpload[0].disabled = true;
 
   form.append('sampleFile', file);
 
